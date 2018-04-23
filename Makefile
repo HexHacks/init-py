@@ -1,15 +1,7 @@
-ENV_DIR = venv
+ENV_DIR = env
 
-environment: clean
-	@echo -- creating environment --
-	@echo
-	virtualenv ${ENV_DIR}
-
-	@echo To activate environment:
-	@echo source ./${ENV_DIR}/bin/activate
-
-install: 
-	@echo -- installing --
+install: environment
+	@echo -- installing to environment --
 	@echo
 	(\
 		source ${ENV_DIR}/bin/activate; \
@@ -17,16 +9,28 @@ install:
 		python setup.py install; \
 	)
 
-clean: clean-environment
+environment: clean-environment
+	@echo -- creating environment --
+	@echo
+
+	virtualenv ${ENV_DIR}
+
+	@echo
+	@echo To activate environment:
+	@echo source ./${ENV_DIR}/bin/activate
+
+
+clean: clean-environment clean-install
+
+clean-install:
+	@echo -- cleanup stuff generated from setup.py --
+	@echo
+	rm -rf build
+	rm -rf dist
+	rm -rf sample.egg-info
 
 clean-environment:
-	@echo -- cleaning old environment --
+	@echo -- cleaning environment --
 	@echo
-	@echo Removing ${ENV_DIR}...
-	@if [ -d "${ENV_DIR}" ]; then \
-		rm -rf "${ENV_DIR}" \
-		rmdir env; \
-	fi
-
-	@echo
+	rm -rf ${ENV_DIR}
 
