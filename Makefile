@@ -1,4 +1,16 @@
+.DEFAULT_GOAL := install
+
+APP_NAME = sample
 ENV_DIR = env
+
+test: install
+	@echo -- running unit tests --
+	@echo
+
+	@(\
+		source ${ENV_DIR}/bin/activate; \
+		python -m unittest discover -s tests -p "*_test.py"; \
+	)
 
 install: environment
 	@echo -- installing to environment --
@@ -17,8 +29,7 @@ environment: clean-environment
 
 	@echo
 	@echo To activate environment:
-	@echo source ./${ENV_DIR}/bin/activate
-
+	@echo source ${ENV_DIR}/bin/activate
 
 clean: clean-environment clean-install
 
@@ -27,7 +38,7 @@ clean-install:
 	@echo
 	rm -rf build
 	rm -rf dist
-	rm -rf sample.egg-info
+	rm -rf ${APP_NAME}.egg-info
 
 clean-environment:
 	@echo -- cleaning environment --

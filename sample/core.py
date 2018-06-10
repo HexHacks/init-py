@@ -1,12 +1,13 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from . import helpers
 
-def get_hmm():
-    """Get a thought."""
-    return 'hmmm...'
+''' A short description of this file
 
+    A slightly longer description of this file
+    can be found under the shorter desription.
+'''
 
-def hmm():
-    """Contemplation..."""
-    if helpers.get_answer():
-        print(get_hmm())
+def get_code():
+    ''' Get mysterious code... '''
+    return '100111011111101010110110101100'
+
